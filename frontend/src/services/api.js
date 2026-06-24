@@ -5,7 +5,7 @@
  * In production:  VITE_API_URL = deployed backend URL (e.g. https://your-backend.vercel.app)
  */
 
-const API_BASE = import.meta.env.VITE_API_URL || '';
+const API_BASE = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
 
 /**
  * POST /bfhl with the given data array.

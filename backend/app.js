@@ -12,13 +12,8 @@ const app = express();
 
 // --------------- Global Middleware ---------------
 
-// Enable CORS — uses FRONTEND_URL env var in production, allows all in dev
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL || '*',
-    methods: ['GET', 'POST', 'OPTIONS'],
-  }),
-);
+// Enable CORS for all origins
+app.use(cors());
 
 // Parse incoming JSON requests
 app.use(express.json());

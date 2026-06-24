@@ -1,11 +1,14 @@
 /**
  * API service — all backend communication goes through here.
+ *
+ * In development: VITE_API_URL is empty → requests go to the Vite proxy.
+ * In production:  VITE_API_URL = deployed backend URL (e.g. https://your-backend.vercel.app)
  */
 
-const API_BASE = '/api';
+const API_BASE = import.meta.env.VITE_API_URL || '';
 
 /**
- * POST /api/bfhl with the given data array.
+ * POST /bfhl with the given data array.
  * @param {string[]} data - array of edge strings
  * @returns {Promise<object>} parsed JSON response
  */

@@ -12,8 +12,13 @@ const app = express();
 
 // --------------- Global Middleware ---------------
 
-// Enable CORS for all origins (configurable for production)
-app.use(cors());
+// Enable CORS — uses FRONTEND_URL env var in production, allows all in dev
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || '*',
+    methods: ['GET', 'POST', 'OPTIONS'],
+  }),
+);
 
 // Parse incoming JSON requests
 app.use(express.json());
@@ -25,6 +30,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', indexRoutes);
 app.use('/api/bfhl', bfhlRoutes);
+
+// Vercel-friendly route — POST /bfhl accessible without /api prefix
+app.use('/bfhl', bfhlRoutes);
 
 // --------------- Error Handling ---------------
 
